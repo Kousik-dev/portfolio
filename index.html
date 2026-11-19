@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kousik is an AI engineer working on agent workflows, retrieval, and real-time voice applications.">
+  <meta name="theme-color" content="#fcfcfb">
+  <title>Kousik · AI Engineer</title>
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./src/style.css?v=6835a8b39765">
+  <script defer src="./src/main.js"></script>
+  <script defer src="./src/kitten.js?v=6c4a98c0b164"></script>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon-library" aria-hidden="true" width="0" height="0">
+  <symbol id="tool-code" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-14-2 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="tool-python" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M12 2c-4.5 0-5.2 1.7-5.2 3.3v2.3h5.4v.9H4.9C3.1 8.5 2 9.8 2 12.7s1.7 4 3.2 4h1.6v-2.4c0-1.9 1.5-3.4 3.4-3.4h5.2c1.4 0 2.4-1 2.4-2.4V5.3C17.8 3.4 16.1 2 12 2z"/>
+    <path fill="currentColor" opacity=".65" d="M12 22c4.5 0 5.2-1.7 5.2-3.3v-2.3h-5.4v-.9h7.3c1.8 0 2.9-1.3 2.9-4.2s-1.7-4-3.2-4h-1.6v2.4c0 1.9-1.5 3.4-3.4 3.4H8.6c-1.4 0-2.4 1-2.4 2.4v3.2c0 1.9 1.7 3.3 5.8 3.3z"/>
+    <circle cx="9.5" cy="5" r="1.05" fill="var(--icon-bg, white)"/><circle cx="14.5" cy="19" r="1.05" fill="var(--icon-bg, white)"/>
+  </symbol>
+  <symbol id="tool-cpp" viewBox="0 0 24 24">
+    <path d="m12 1 9.5 5.5v11L12 23l-9.5-5.5v-11z" fill="currentColor"/>
+    <path d="M13.2 8.5a4.1 4.1 0 1 0 0 7m.9-3.5h4m-2-2v4m3-2H23m-2-2v4" fill="none" stroke="var(--icon-bg, white)" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="tool-ts" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="2" fill="currentColor"/>
+    <path d="M6 12h6m-3 0v6m10-5.1c-1.4-1.9-4.8-1.1-4.8.6 0 2.1 4.8 1.1 4.8 3s-3.6 2.6-5.1.8" fill="none" stroke="var(--icon-bg, white)" stroke-width="1.55" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="tool-js" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="2" fill="currentColor"/>
+    <path d="M10.5 11.8v4.6c0 2-2.9 2.4-4 .6m12.5-4.2c-1.4-1.9-4.8-1.1-4.8.6 0 2.1 4.8 1.1 4.8 3s-3.6 2.6-5.1.8" fill="none" stroke="var(--icon-bg, white)" stroke-width="1.55" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="tool-react" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.12">
+      <ellipse cx="12" cy="12" rx="10.5" ry="4.1"/><ellipse cx="12" cy="12" rx="10.5" ry="4.1" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="4.1" transform="rotate(120 12 12)"/>
+    </g><circle cx="12" cy="12" r="2" fill="currentColor"/>
+  </symbol>
+  <symbol id="tool-node" viewBox="0 0 24 24">
+    <path d="m12 2 8.7 5v10L12 22l-8.7-5V7zM8 9h2v6c0 1.1-.6 1.8-1.8 1.8H7m10-6.7c-.7-1.3-3.7-1.3-3.7.3 0 1.4 3.7 1.2 3.7 2.8 0 1.7-3 1.7-4 1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="tool-fastapi" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="currentColor"/>
+    <path d="m13.6 4.5-6.2 8.4h4l-1 6.4 6.4-8.9h-4.1z" fill="var(--icon-bg, white)"/>
+  </symbol>
+  <symbol id="tool-django" viewBox="0 0 24 24">
+    <path d="M10.4 2h3.2v16c-2 .6-3.4.7-4.7.7C5.1 18.7 3 17 3 13.7c0-3.4 2.1-5.3 5.4-5.3.7 0 1.3.1 2 .3zm0 9.3a5 5 0 0 0-1.6-.3C7 11 6.1 12 6.1 13.7s.9 2.5 2.7 2.5h1.6zM17 8.7h3.2v7.9c0 2.6-.3 4.8-3.4 6.1l-2.9-1.5c2.5-1.1 3.1-2 3.1-4.6zM17 4h3.2v3.2H17z" fill="currentColor"/>
+  </symbol>
+  <symbol id="tool-langgraph" viewBox="0 0 24 24">
+    <path d="M6 4h8a5 5 0 0 1 0 10h-4m0 0 3-3m-3 3 3 3M6 4v16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="4" r="2.2" fill="currentColor"/><circle cx="6" cy="20" r="2.2" fill="currentColor"/>
+  </symbol>
+  <symbol id="tool-rag" viewBox="0 0 24 24">
+    <path d="M4 3h8l4 4v3m-4-7v5h4M4 3v17h7m-4-8h4m-4-3h2m10 9 3 3" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16.5" cy="15.5" r="3.7" fill="none" stroke="currentColor" stroke-width="1.75"/>
+  </symbol>
+  <symbol id="tool-mcp" viewBox="0 0 24 24"><path d="m3 12 8.5-8.5a2.65 2.65 0 0 1 3.8 3.7L9 13.5m6.3-6.3.7-.7a2.65 2.65 0 0 1 3.8 3.7l-6.3 6.3m3.2-7.2-6.8 6.8a1.75 1.75 0 0 0 0 2.5l2 2" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="tool-openai" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round">
+      <path id="openai-loop" d="M10 10V4.7c0-2.8 6.2-3.2 8.1.2 1.4 2.5-.1 5.7-2.5 6.6"/>
+      <use href="#openai-loop" transform="rotate(60 12 12)"/><use href="#openai-loop" transform="rotate(120 12 12)"/><use href="#openai-loop" transform="rotate(180 12 12)"/><use href="#openai-loop" transform="rotate(240 12 12)"/><use href="#openai-loop" transform="rotate(300 12 12)"/>
+    </g>
+  </symbol>
+  <symbol id="tool-claude" viewBox="0 0 24 24"><path d="m12 2 .5 8 4.1-6.8-2.9 7.4 6.9-4.1-5.2 5.9 7.6.1-7.6 1.8 6 4.7-7-2.7 3.1 6.2-5-5.6-1.8 6.1-.2-7.2-6 5.1 4.9-6.9-7.9 2.5 7-4.2-7.1-2 8 .6-4.8-6 6.1 4.7z" fill="currentColor"/></symbol>
+  <symbol id="tool-webrtc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><path d="m6 6 12 1-1 11-11-1zM6 6l11 12m1-11L6 17"/></g><g fill="currentColor"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="17" cy="18" r="2.5"/><circle cx="6" cy="17" r="2.5"/></g></symbol>
+  <symbol id="tool-postgres" viewBox="0 0 24 24">
+    <path d="M10 5c1.2-2.5 7-2.9 8.9-.4 2.2 2.9.4 7.8-1 9.5-.9 1.2-2.1 1.3-3.1.9l-.5 3.4c-.3 2.7-1.5 3.3-2.8 3.3-1.4 0-2.2-.7-2.2-2.2v-3l-2.4.5C4 17.4 3.5 13.2 3.5 9.5c0-3 1.4-4.7 3.6-4.7 1.2 0 2.1.7 2.9 1.6m-.5 10c1.6-.4 2.6-1.6 2.7-3M7.4 9.7h.1m7.2-.3h.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="tool-mongo" viewBox="0 0 24 24">
+    <path d="M12 1c-.8 3.6-5.3 6.3-5.3 11.4 0 4 2.1 6.4 4.7 8.3l.6 2.3.5-2.3c2.7-2.1 4.8-4.5 4.8-8.3C17.3 7.3 12.8 4.6 12 1z" fill="currentColor"/>
+    <path d="M12 7.6v12.5" stroke="var(--icon-bg, white)" stroke-opacity=".6" stroke-width=".7"/>
+  </symbol>
+  <symbol id="tool-docker" viewBox="0 0 24 24"><path d="M2 12h15.3c.7-.1 1.1-.4 1.4-.9-.8-1.1-.5-2.3.2-3 .8.6 1.2 1.1 1.4 1.9.8-.2 1.5-.1 2.4.4-.3 1.1-1.1 1.7-2.5 1.8-1.5 4.3-4.7 6.6-9.8 6.6-4.9 0-8.3-2.3-8.4-6.8zm2-3h2.7v2.5H4zm3.1 0h2.7v2.5H7.1zm3.1 0h2.7v2.5h-2.7zm3.1 0H16v2.5h-2.7zm-6.2-3h2.7v2.5H7.1zm3.1 0h2.7v2.5h-2.7zm3.1 0H16v2.5h-2.7zm0-3H16v2.5h-2.7z" fill="currentColor"/></symbol>
+  <symbol id="tool-kubernetes" viewBox="0 0 24 24">
+    <path d="m12 1 8.2 4 2 8.7-5.8 7.4H7.6l-5.8-7.4 2-8.7z" fill="currentColor"/>
+    <g fill="none" stroke="var(--icon-bg, white)" stroke-width="1.25" stroke-linecap="round"><circle cx="12" cy="11.8" r="4.5"/><circle cx="12" cy="11.8" r="1.6"/><path d="M12 5v5.2m5.3-3.1-4 3.6m5.8 2.3-5.6-.8m1.6 6.1-2.2-5m-4 5 2.4-5m-6.4-.3 5.5-.7M6.7 7l4 3.8"/></g>
+  </symbol>
+  <symbol id="tool-aws" viewBox="0 0 24 24"><path d="M2 16.8c5.8 3.2 11.1 4.1 18.7-.1m-3.6-1.8c1.5-.5 3.3-.7 4.9-.1-.1 1.9-.7 3.3-1.5 4.3M6.4 12.9V9.4c0-1.9-2.3-2.1-3.9-1m3.7 3.2c-.8 1.8-4 1.8-4 .2 0-1.6 2.3-1.7 4.1-1.7m2-2.4 1.5 5 1.6-4.3 1.5 4.3 1.7-5m5.9.8c-.9-1-3.9-.9-3.9.6 0 1.3 3.9 1 3.9 2.6 0 1.6-3 1.8-4 .8" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="tool-git" viewBox="0 0 24 24">
+    <path d="M10.7 2.1a1.9 1.9 0 0 1 2.6 0l8.6 8.6a1.9 1.9 0 0 1 0 2.6l-8.6 8.6a1.9 1.9 0 0 1-2.6 0l-8.6-8.6a1.9 1.9 0 0 1 0-2.6z" fill="currentColor"/>
+    <path d="m7.3 5.6 9 9m-4.7-4.8v7.5" fill="none" stroke="var(--icon-bg, white)" stroke-width="1.5"/>
+    <g fill="var(--icon-bg, white)"><circle cx="11.6" cy="9.9" r="1.65"/><circle cx="16.3" cy="14.6" r="1.65"/><circle cx="11.6" cy="17.3" r="1.65"/></g>
+  </symbol>
+</svg>
+
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header" id="top">
+    <div class="wrapper header-inner">
+      <a href="#top" class="brand"><img src="./assets/mark.svg" alt="" width="30" height="30">Kousik</a>
+      <nav aria-label="Main navigation">
+        <a href="#stack">Stack</a>
+        <a href="#work">Projects</a>
+        <a href="#experience">Experience</a>
+      </nav>
+      <a class="header-contact" href="#contact">Contact <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+  <main class="wrapper" id="main">
+    <figure class="landscape" id="landscape">
+      <img src="./assets/winter-pass.jpg" alt="Pixel art of a snowy alpine pass beneath a gathering winter storm" width="1408" height="469" fetchpriority="high">
+      <div class="landscape-air" aria-hidden="true"><i></i></div>
+      <div class="landscape-live" aria-hidden="true"></div>
+    </figure>
+    <section class="hero" aria-labelledby="name">
+      <div class="hero-copy">
+        <p class="location"><span aria-hidden="true"></span>Coimbatore, India</p>
+        <h1 id="name">Kousik</h1>
+        <p class="role">AI Engineer <span>at Tata Elxsi</span></p>
+        <p class="intro">I build AI agents, retrieval systems, and real-time voice applications. At Tata Elxsi, I turn requirements and legacy workflows into tools teams can use.</p>
+        <div class="hero-links">
+          <a class="button" href="#work">View projects <span aria-hidden="true">↓</span></a>
+          <a class="profile-link" href="https://github.com/Kousik-dev">GitHub <span aria-hidden="true">↗</span></a>
+<a class="profile-link" href="https://www.linkedin.com/in/kousik-velusamy-7248b322a">LinkedIn <span aria-hidden="true">↗</span></a>
+<a class="profile-link" href="https://leetcode.com/u/Kousik_Dev/">LeetCode <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <figure class="portrait">
+        <img src="./assets/kousik.jpg" alt="Portrait of Kousik" width="704" height="704">
+      </figure>
+    </section>
+    <section id="stack" class="section" aria-labelledby="stack-title">
+      <h2 id="stack-title" data-reveal>Stack</h2>
+      <ul class="tool-grid" aria-label="Featured technologies">
+        <li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-python"></use></svg><span>Python</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-cpp"></use></svg><span>C++</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-ts"></use></svg><span>TypeScript</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-js"></use></svg><span>JavaScript</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-langgraph"></use></svg><span>LangGraph</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-rag"></use></svg><span>RAG</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-mcp"></use></svg><span>MCP</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-openai"></use></svg><span>OpenAI</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-claude"></use></svg><span>Claude</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-fastapi"></use></svg><span>FastAPI</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-django"></use></svg><span>Django REST</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-react"></use></svg><span>React</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-node"></use></svg><span>Node.js</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-webrtc"></use></svg><span>WebRTC</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-postgres"></use></svg><span>PostgreSQL</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-mongo"></use></svg><span>MongoDB</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-docker"></use></svg><span>Docker</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-kubernetes"></use></svg><span>Kubernetes</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-aws"></use></svg><span>AWS</span></li>
+<li data-reveal><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><use href="#tool-git"></use></svg><span>Git</span></li>
+      </ul>
+      <details class="stack-details">
+        <summary>Tools and areas of expertise</summary>
+        <div class="stack-list">
+          <article class="stack-row">
+            <h3>Agents &amp; retrieval</h3><p>Graph-based agent workflows, tool calling, document retrieval, and vector search.</p><ul class="tags" aria-label="Technologies"><li>LangGraph</li><li>LangChain</li><li>CrewAI</li><li>RAG</li><li>MCP</li><li>FAISS</li><li>ChromaDB</li><li>Pinecone</li></ul>
+          </article>
+<article class="stack-row">
+            <h3>Model integrations</h3><p>Interchangeable model providers and low-latency voice sessions.</p><ul class="tags" aria-label="Technologies"><li>OpenAI</li><li>OpenAI Realtime API</li><li>Anthropic Claude</li><li>AWS Bedrock</li><li>WebRTC</li><li>WebSockets</li></ul>
+          </article>
+<article class="stack-row">
+            <h3>Applications &amp; APIs</h3><p>REST APIs, React interfaces, and services that connect AI workflows to data.</p><ul class="tags" aria-label="Technologies"><li>Python</li><li>FastAPI</li><li>Django REST</li><li>TypeScript</li><li>JavaScript</li><li>React</li><li>Node.js</li><li>Bun</li></ul>
+          </article>
+<article class="stack-row">
+            <h3>Data &amp; infrastructure</h3><p>Relational and document databases, containerized services, and CI/CD.</p><ul class="tags" aria-label="Technologies"><li>SQL</li><li>PostgreSQL</li><li>MySQL</li><li>MongoDB</li><li>Docker</li><li>Kubernetes</li><li>Jenkins</li><li>AWS</li><li>Git</li></ul>
+          </article>
+<article class="stack-row">
+            <h3>Algorithms</h3><p>I practice problem solving and compete on LeetCode, primarily in C++.</p><ul class="tags" aria-label="Technologies"><li>C++</li><li>Data structures</li><li>Dynamic programming</li><li>Backtracking</li><li>Greedy algorithms</li><li>Monotonic stacks</li></ul>
+          </article>
+        </div>
+      </details>
+    </section>
+    <section id="work" class="section" aria-labelledby="work-title">
+      <div class="section-heading">
+        <h2 id="work-title" data-reveal>Projects</h2>
+      </div>
+      <div class="projects">
+        <article class="project has-pet" id="auto-qa-pro">
+    <div class="pet-track">
+      <button class="project-pet" type="button" aria-label="Tommy the cat" disabled>
+        <span class="pet-facing" aria-hidden="true"><img src="./assets/kitten.svg" alt="" width="59" height="50"></span>
+        <canvas class="kitten-canvas" aria-hidden="true" hidden></canvas>
+        <span class="pet-sleep-note" aria-hidden="true">Zzz</span>
+        <span class="pet-hello" aria-hidden="true">Hi, I’m Tommy
+          <svg width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3C6 14 17 17 29 12m-6-2 6 2-3 6"/></svg>
+        </span>
+      </button>
+      <span class="visually-hidden pet-status" role="status"></span>
+    </div>
+    <header class="project-heading">
+      <h3 data-reveal>Auto QA Pro</h3>
+      <p class="metadata">Tata Elxsi · Granted patent · 2025</p>
+    </header>
+    <ul class="project-points" data-reveal>
+      <li>An AI platform that turns requirement documents into test cases and scripts, with approximately 95% reported accuracy.</li><li>Built retrieval and deduplication to pull relevant context from large requirement document collections.</li><li>Built the upload, review, and export workflow and a shared interface for interchangeable LLM providers.</li>
+    </ul>
+    <ul class="tags" aria-label="Technologies"><li>Python</li><li>RAG</li><li>Django REST</li><li>React</li></ul>
+    
+    
+  </article>
+<article class="project" id="intervai">
+    
+    <header class="project-heading">
+      <h3 data-reveal>IntervAI</h3>
+      <p class="metadata">Personal project</p>
+    </header>
+    <ul class="project-points" data-reveal>
+      <li>A real-time voice interview system that uses a candidate’s profile to guide the conversation.</li><li>Implemented voice streaming, session lifecycle handling, and a backend proxy that keeps provider credentials on the server.</li><li>Extracted candidate profiles and generated context for the interview sessions.</li>
+    </ul>
+    <ul class="tags" aria-label="Technologies"><li>OpenAI Realtime API</li><li>TypeScript</li><li>Bun</li><li>React</li><li>WebRTC</li><li>WebSockets</li></ul>
+    
+    
+  </article>
+<article class="project" id="ad-tech-modernization">
+    
+    <header class="project-heading">
+      <h3 data-reveal>Linear ad-tech modernization</h3>
+      <p class="metadata">Tata Elxsi · Team project</p>
+    </header>
+    <ul class="project-points" data-reveal>
+      <li>Helped modernize a legacy linear advertising platform with LangGraph workflows and a more maintainable codebase.</li><li>Contributed to migrating an existing codebase to graph-based AI workflows for a media client.</li><li>The team estimated an 80% improvement in overall efficiency and reduced ongoing engineering support needs.</li>
+    </ul>
+    <ul class="tags" aria-label="Technologies"><li>Python</li><li>LangGraph</li><li>AI workflows</li></ul>
+    
+    
+  </article>
+      </div>
+      <a class="profile-link browse-github" href="https://github.com/Kousik-dev">Browse GitHub <span aria-hidden="true">↗</span></a>
+    </section>
+    <section id="experience" class="section" aria-labelledby="experience-title">
+      <div class="section-layout">
+        <h2 id="experience-title" data-reveal>Experience &amp; education</h2>
+        <div class="experience-list">
+          <article class="experience-row">
+    <div><h3>Software Engineer</h3><p class="organization">Tata Elxsi</p></div>
+    <p class="metadata">2024–present</p>
+    <p class="experience-description">Build agent workflows with memory and tool calling, integrate enterprise APIs through MCP, and connect AI systems to databases and React clients with FastAPI.</p>
+    <ul class="tags" aria-label="Technologies"><li>Python</li><li>LangGraph</li><li>FastAPI</li><li>MCP</li><li>PostgreSQL</li></ul>
+  </article>
+          <article class="experience-row">
+    <div><h3>Master of Computer Applications</h3><p class="organization">Kongu Engineering College</p></div>
+    <p class="metadata">2022–2024</p>
+    <p class="experience-description">CGPA 8.35/10</p>
+    
+  </article>
+        </div>
+      </div>
+    </section>
+    <section id="achievements" class="section" aria-labelledby="achievements-title">
+      <div class="section-heading"><h2 id="achievements-title" data-reveal>Achievements</h2><a class="inline-link" href="https://leetcode.com/u/Kousik_Dev/">LeetCode <span aria-hidden="true">↗</span></a></div>
+      <div class="achievement-content">
+        <dl class="stat-grid">
+          <div class="stat"><dt>Problems solved</dt><dd>882</dd></div>
+<div class="stat"><dt>Contests attended</dt><dd>22</dd></div>
+<div class="stat"><dt>Badges earned</dt><dd>19</dd></div>
+        </dl>
+        <div class="coding-card">
+    <h3>LeetCode activity</h3>
+    <div class="solved-bar" aria-hidden="true">
+      <span style="--count:391"></span><span style="--count:431"></span><span style="--count:60"></span>
+    </div>
+    <dl class="difficulty-list">
+      <div><dt><i aria-hidden="true"></i>Easy</dt><dd>391</dd></div><div><dt><i aria-hidden="true"></i>Medium</dt><dd>431</dd></div><div><dt><i aria-hidden="true"></i>Hard</dt><dd>60</dd></div>
+    </dl>
+    <p class="stat-note">Problems solved by difficulty · November 2026</p>
+  </div>
+        <ul class="milestones">
+          <li>
+            <div><h3>Granted patent for Auto QA Pro</h3><p>AI-assisted test generation from requirement documents.</p></div>
+            <span class="metadata">2025</span>
+          </li>
+<li>
+            <div><h3>Tata Elxsi internal hackathon runner-up</h3><p>Recognized company-wide for Auto QA Pro.</p></div>
+            
+          </li>
+<li>
+            <div><h3><a class="inline-link" href="https://leetcode.com/u/Kousik_Dev/">LeetCode 500 Days Badge <span aria-hidden="true">↗</span></a></h3><p>A milestone in competitive programming.</p></div>
+            
+          </li>
+<li>
+            <div><h3>AWS Solutions Architect coursework</h3><p>Completed coursework through LinkedIn Learning.</p></div>
+            
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section id="about" class="section about" aria-labelledby="about-title">
+      <h2 id="about-title" data-reveal>About</h2>
+      <p data-reveal>I’m a software engineer at Tata Elxsi, working across retrieval, AI agents, and the APIs that put them to work. I like problems where the hard part is making a system useful and dependable outside the demo.</p>
+    </section>
+  </main>
+  <footer class="site-footer" id="contact">
+    <div class="wrapper">
+      <div class="footer-main"><h2>Get in touch</h2><div class="contact-links"><a class="profile-link" href="https://github.com/Kousik-dev">GitHub <span aria-hidden="true">↗</span></a>
+<a class="profile-link" href="https://www.linkedin.com/in/kousik-velusamy-7248b322a">LinkedIn <span aria-hidden="true">↗</span></a>
+<a class="profile-link" href="https://leetcode.com/u/Kousik_Dev/">LeetCode <span aria-hidden="true">↗</span></a>
+<a class="profile-link" href="mailto:kousikvelusamy@gmail.com">Email <span aria-hidden="true">↗</span></a></div></div>
+      <div class="footer-bottom"><span>Kousik · Coimbatore, India</span><a href="#top">Back to top <span aria-hidden="true">↑</span></a></div>
+    </div>
+    <div class="footer-field" aria-hidden="true"><span>Kousik</span></div>
+  </footer>
+</body>
+</html>
