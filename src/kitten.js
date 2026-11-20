@@ -181,6 +181,7 @@
   if (!track) return;
   const button = track.querySelector('.project-pet');
   const canvas = track.querySelector('.kitten-canvas');
+  const prompt = track.querySelector('.pet-prompt');
   const status = track.querySelector('.pet-status');
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
@@ -204,8 +205,9 @@
     const sleeping = next === 'nap' || finished;
     track.classList.toggle('is-ready', next === 'ready');
     button.disabled = finished;
+    if (next === 'ready') prompt.textContent = preference.matches ? 'Tuck Tommy in' : 'Walk with Tommy';
     button.setAttribute('aria-label', {
-      ready: 'Start Tommy’s walk',
+      ready: prompt.textContent,
       walk: 'Let Tommy nap here',
       nap: 'Wake Tommy and continue his walk',
       finished: 'Tommy is asleep at the left edge',
@@ -303,6 +305,7 @@
   if ('ResizeObserver' in window) new ResizeObserver(resize).observe(track);
   else window.addEventListener('resize', resize);
   preference.addEventListener('change', () => {
+    if (mode === 'ready') setMode('ready');
     if (preference.matches && mode === 'walk') finishWithoutMotion();
     if (preference.matches && mode === 'nap') curl = 1;
     sync();

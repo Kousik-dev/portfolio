@@ -108,9 +108,8 @@ h1 { margin: 0.1em 0 0.13em -0.035em; font-weight: 620; font-size: clamp(3.4rem,
 .profile-link:hover > span { transform: translate(2px, -2px); }
 .profile-link:active { transform: translateY(1px); }
 .inline-link { color: var(--accent); }
-.portrait { position: relative; isolation: isolate; border: 1px solid #c9d2e5; border-radius: 13px; padding: 7px; background: white; }
-.portrait::before { position: absolute; content: ""; inset: 8px -8px -8px 8px; border-radius: 12px; border: 1px solid #a6baf1; z-index: -1; }
-.portrait img { width: 100%; height: auto; border-radius: 8px; }
+.portrait { overflow: hidden; border: 1px solid var(--line); border-radius: 12px; }
+.portrait img { width: 100%; height: auto; }
 
 .section { padding-block: 1.7rem clamp(2.9rem, 6vw, 5.4rem); border-top: 1px solid var(--line); scroll-margin-top: 18px; }
 .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem 1.3rem; flex-wrap: wrap; margin-bottom: 1.35rem; }
@@ -136,15 +135,14 @@ h3 { font-size: 1.18rem; font-weight: 650; letter-spacing: -0.033em; }
 .kitten-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
 .pet-sleep-note { position: absolute; top: 30%; left: 17%; opacity: 0; color: #5e6390; font-size: 0.76rem; font-weight: 800; pointer-events: none; }
 .is-napping .pet-sleep-note { opacity: 1; }
-.pet-hello {
-  position: absolute; right: 75%; bottom: 63%; width: max-content;
-  display: flex; align-items: baseline; gap: 0.2rem;
-  font: italic 1rem/1.2 Georgia, serif; color: var(--muted);
-  transform: rotate(-7deg); transform-origin: right bottom;
-  opacity: 0; visibility: hidden;
+.pet-prompt {
+  display: none; position: absolute; right: 82%; top: 50%; width: max-content;
+  padding: 0.3rem 0.6rem; transform: translateY(-50%);
+  border: 1px solid #c3d0ec; border-radius: 999px;
+  background: var(--surface); color: var(--accent); font-size: 0.78rem; font-weight: 700;
 }
-.pet-hello svg { flex: none; position: relative; top: 0.5rem; transform: rotate(12deg); }
-.is-ready .pet-hello { opacity: 1; visibility: visible; }
+.is-ready .pet-prompt { display: block; }
+.project-pet:is(:hover, :focus-visible) .pet-prompt { background: var(--accent-soft); border-color: var(--accent); }
 .project {
   display: grid; gap: 0.9rem; min-width: 0; padding: clamp(1rem, 3vw, 1.65rem);
   border: 1px solid #dce1e9; border-radius: 10px; background: #f6f7f9;
@@ -241,9 +239,7 @@ h3 { font-size: 1.18rem; font-weight: 650; letter-spacing: -0.033em; }
   .location { align-self: end; margin-top: 0.18rem; font-size: 0.74rem; }
   h1 { grid-row: 2; font-size: clamp(2.45rem, 9.4vw, 3.6rem); margin-block: -0.48rem; }
   .role { grid-row: 3; font-size: clamp(0.91rem, 3.1vw, 1.2rem); }
-  .portrait { grid-column: 2; grid-row: 1 / 4; align-self: center; padding: 4px; border-radius: 9px; margin-right: 5px; }
-  .portrait::before { inset: 4px -5px -5px 4px; border-radius: 9px; }
-  .portrait img { border-radius: 5px; }
+  .portrait { grid-column: 2; grid-row: 1 / 4; align-self: center; border-radius: 9px; }
   .intro, .hero-links { grid-column: 1 / -1; margin: 0; }
   .pet-track { --pet-width: 82px; }
   .project.has-pet { margin-top: 32px; }
