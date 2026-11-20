@@ -108,16 +108,12 @@ h1 { margin: 0.1em 0 0.13em -0.035em; font-weight: 620; font-size: clamp(3.4rem,
 .profile-link:hover > span { transform: translate(2px, -2px); }
 .profile-link:active { transform: translateY(1px); }
 .inline-link { color: var(--accent); }
-.portrait {
-  --rim: clamp(3px, 0.45vw, 5px);
-  --corner: clamp(11px, 1.6vw, 17px);
-  padding: var(--rim);
-  border-radius: var(--corner);
-  background: #526b93;
-  background: linear-gradient(135deg, #35496e 0%, #8daed0 24%, #e0eff8 36%, #829fc0 36.5%, #43577d 68%, #a6c5dc 86%, #516588 100%);
-  box-shadow: 0 5px 12px -7px #26395180;
+.portrait img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #d4d4d1;
+  border-radius: 8px;
 }
-.portrait img { width: 100%; height: auto; border-radius: calc(var(--corner) - var(--rim)); }
 
 .section { padding-block: 1.7rem clamp(2.9rem, 6vw, 5.4rem); border-top: 1px solid var(--line); scroll-margin-top: 18px; }
 .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem 1.3rem; flex-wrap: wrap; margin-bottom: 1.35rem; }
