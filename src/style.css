@@ -111,8 +111,10 @@ h1 { margin: 0.1em 0 0.13em -0.035em; font-weight: 620; font-size: clamp(3.4rem,
 .portrait img {
   width: 100%;
   height: auto;
-  border: 1px solid #d4d4d1;
-  border-radius: 8px;
+  padding: 2px;
+  border: 1px solid #aab8c8;
+  border-radius: 10px;
+  background: var(--surface);
 }
 
 .section { padding-block: 1.7rem clamp(2.9rem, 6vw, 5.4rem); border-top: 1px solid var(--line); scroll-margin-top: 18px; }

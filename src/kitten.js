@@ -205,14 +205,14 @@
     const sleeping = next === 'nap' || finished;
     track.classList.toggle('is-ready', next === 'ready');
     button.disabled = finished;
-    if (next === 'ready') prompt.textContent = preference.matches ? 'Tuck Tommy in' : 'Walk with Tommy';
+    if (next === 'ready') prompt.textContent = preference.matches ? 'Tuck Snowbell in' : 'Walk with Snowbell';
     button.setAttribute('aria-label', {
       ready: prompt.textContent,
-      walk: 'Let Tommy nap here',
-      nap: 'Wake Tommy and continue his walk',
-      finished: 'Tommy is asleep at the left edge',
+      walk: 'Let Snowbell nap here',
+      nap: 'Wake Snowbell and continue his walk',
+      finished: 'Snowbell is asleep at the left edge',
     }[next]);
-    if (next !== 'ready') status.textContent = sleeping ? 'Tommy is settling down.' : 'Tommy is walking.';
+    if (next !== 'ready') status.textContent = sleeping ? 'Snowbell is settling down.' : 'Snowbell is walking.';
     speed = 0;
   }
 
@@ -242,7 +242,7 @@
     clock += delta;
     if (mode === 'nap' || mode === 'finished') {
       curl = Math.min(1, curl + delta / 0.85);
-      if (curl === 1) status.textContent = 'Tommy is asleep.';
+      if (curl === 1) status.textContent = 'Snowbell is asleep.';
       return;
     }
     if (curl > 0) {
@@ -285,7 +285,7 @@
     distance = span;
     curl = 1;
     setMode('finished');
-    status.textContent = 'Tommy is asleep.';
+    status.textContent = 'Snowbell is asleep.';
   }
 
   button.addEventListener('click', () => {
