@@ -182,7 +182,8 @@
   const button = track.querySelector('.project-pet');
   const canvas = track.querySelector('.kitten-canvas');
   const prompt = track.querySelector('.pet-prompt');
-  const promptLabel = prompt.querySelector('.pet-prompt-label');
+  const walkLabel = prompt.querySelector('.pet-walk-label');
+  const tuckLabel = prompt.querySelector('.pet-tuck-label');
   const status = track.querySelector('.pet-status');
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
@@ -206,9 +207,12 @@
     const sleeping = next === 'nap' || finished;
     track.classList.toggle('is-ready', next === 'ready');
     button.disabled = finished;
-    if (next === 'ready') promptLabel.textContent = preference.matches ? 'Tuck Snowbell in' : 'Walk with Snowbell';
+    if (next === 'ready') {
+      walkLabel.hidden = preference.matches;
+      tuckLabel.hidden = !preference.matches;
+    }
     button.setAttribute('aria-label', {
-      ready: promptLabel.textContent,
+      ready: (preference.matches ? tuckLabel : walkLabel).textContent,
       walk: 'Let Snowbell nap here',
       nap: 'Wake Snowbell and continue his walk',
       finished: 'Snowbell is asleep at the left edge',

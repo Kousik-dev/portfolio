@@ -164,12 +164,13 @@ h3 { font-size: 1.18rem; font-weight: 650; letter-spacing: -0.033em; }
 .is-rigged .pet-prompt { display: block; visibility: hidden; }
 .is-ready .pet-prompt { visibility: visible; }
 .pet-prompt-label { display: block; }
+.pet-walk-label > span { display: inline-block; }
 .pet-pointer {
   position: absolute; left: 0; top: 100%; width: var(--pointer-width); height: auto;
   transform: translateY(-50%);
   fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
 }
-.project-pet:is(:hover, :focus-visible) .pet-prompt-label { text-decoration: underline; text-underline-offset: 0.22em; }
+.project-pet:is(:hover, :focus-visible) :is(.pet-walk-label > span, .pet-tuck-label) { text-decoration: underline; text-underline-offset: 0.22em; }
 .project {
   display: grid; gap: 0.9rem; min-width: 0; padding: clamp(1rem, 3vw, 1.65rem);
   border: 1px solid #dce1e9; border-radius: 10px; background: #f6f7f9;
@@ -251,6 +252,19 @@ h3 { font-size: 1.18rem; font-weight: 650; letter-spacing: -0.033em; }
 
   .reveal-armed { transition: filter 1850ms cubic-bezier(0.24, 0.45, 0.25, 1), opacity 1850ms ease-out, transform 1850ms cubic-bezier(0.2, 0.42, 0.25, 1); }
   .reveal-pending { opacity: 0.48; filter: blur(5px); transform: translateY(8px); }
+
+  .is-ready:not(.is-active) .pet-prompt { visibility: hidden; }
+  .is-ready.is-active .pet-walk-label > span { animation: pet-word-in 360ms ease-out both; }
+  .is-ready.is-active .pet-walk-label > span:nth-child(2) { animation-delay: 90ms; }
+  .is-ready.is-active .pet-walk-label > span:nth-child(3) { animation-delay: 180ms; }
+  .is-ready.is-active .pet-pointer path[pathLength] {
+    stroke-dasharray: 1;
+    animation: pet-pointer-draw 520ms 120ms ease-out both;
+  }
+  .is-ready.is-active .pet-pointer path:last-child { animation: pet-arrowhead-in 150ms 540ms ease-out both; }
+  @keyframes pet-word-in { from { opacity: 0; transform: translateY(5px); } }
+  @keyframes pet-pointer-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes pet-arrowhead-in { from { opacity: 0; } }
 
   .is-active.is-napping .pet-sleep-note { animation: kitten-snores 1.45s ease-out infinite; }
   @keyframes kitten-snores {
