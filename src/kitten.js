@@ -182,6 +182,7 @@
   const button = track.querySelector('.project-pet');
   const canvas = track.querySelector('.kitten-canvas');
   const prompt = track.querySelector('.pet-prompt');
+  const promptLabel = prompt.querySelector('.pet-prompt-label');
   const status = track.querySelector('.pet-status');
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
@@ -205,9 +206,9 @@
     const sleeping = next === 'nap' || finished;
     track.classList.toggle('is-ready', next === 'ready');
     button.disabled = finished;
-    if (next === 'ready') prompt.textContent = preference.matches ? 'Tuck Snowbell in' : 'Walk with Snowbell';
+    if (next === 'ready') promptLabel.textContent = preference.matches ? 'Tuck Snowbell in' : 'Walk with Snowbell';
     button.setAttribute('aria-label', {
-      ready: prompt.textContent,
+      ready: promptLabel.textContent,
       walk: 'Let Snowbell nap here',
       nap: 'Wake Snowbell and continue his walk',
       finished: 'Snowbell is asleep at the left edge',
@@ -228,7 +229,10 @@
   function resize() {
     const progress = mode === 'finished' ? 1 : span ? distance / span : 0;
     if (!button.clientWidth || !track.clientWidth) return;
-    span = Math.max(0, track.clientWidth - button.clientWidth);
+    const gutter = document.documentElement.clientWidth - track.getBoundingClientRect().right;
+    const promptOverhang = prompt.getBoundingClientRect().right - button.getBoundingClientRect().right;
+    const perchInset = Math.max(0, promptOverhang - gutter);
+    span = Math.max(0, track.clientWidth - button.clientWidth - perchInset);
     scale = button.clientWidth / viewWidth;
     distance = span * progress;
     const density = Math.min(window.devicePixelRatio || 1, 2);
@@ -302,8 +306,12 @@
     });
     observer.observe(button);
   }
-  if ('ResizeObserver' in window) new ResizeObserver(resize).observe(track);
-  else window.addEventListener('resize', resize);
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(resize);
+    observer.observe(track);
+    observer.observe(prompt);
+  }
+  window.addEventListener('resize', resize);
   preference.addEventListener('change', () => {
     if (mode === 'ready') setMode('ready');
     if (preference.matches && mode === 'walk') finishWithoutMotion();
