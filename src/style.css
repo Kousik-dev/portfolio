@@ -56,7 +56,7 @@ img { display: block; max-width: 100%; }
 .brand { display: inline-flex; align-items: center; gap: 0.55rem; justify-self: start; font-size: 0.98rem; font-weight: 660; }
 .header-inner nav { display: flex; flex-wrap: wrap; column-gap: clamp(0.8rem, 3vw, 2.2rem); }
 .header-inner nav a, .header-contact { padding: 0.45rem 0; font-size: 0.86rem; font-weight: 620; color: var(--muted); }
-.header-contact { justify-self: end; color: var(--accent); }
+.header-contact { display: inline-flex; align-items: center; gap: 0.4rem; justify-self: end; color: var(--accent); }
 .header-inner nav a:hover, .inline-link:hover, .profile-link:hover, .header-contact:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 0.25em; }
 
 .landscape { position: relative; isolation: isolate; overflow: hidden; aspect-ratio: 3.15; margin-top: clamp(1.15rem, 3vw, 2.4rem); border-radius: 12px; background: #283849; box-shadow: 0 15px 33px -22px #172340ad; }
