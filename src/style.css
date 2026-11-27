@@ -59,18 +59,21 @@ img { display: block; max-width: 100%; }
 .header-contact { display: inline-flex; align-items: center; gap: 0.4rem; justify-self: end; color: var(--accent); }
 .header-inner nav a:hover, .inline-link:hover, .profile-link:hover, .header-contact:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 0.25em; }
 
-.landscape { position: relative; isolation: isolate; overflow: hidden; aspect-ratio: 3.15; margin-top: clamp(1.15rem, 3vw, 2.4rem); border-radius: 12px; background: #283849; box-shadow: 0 15px 33px -22px #172340ad; }
-.landscape > img { width: 100%; height: 100%; object-fit: cover; object-position: 59% 49%; }
-.landscape-live, .landscape-live canvas, .landscape-air { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.landscape { --landscape-position: 59% 49%; position: relative; isolation: isolate; overflow: hidden; aspect-ratio: 3.15; margin-top: clamp(1.15rem, 3vw, 2.4rem); border-radius: 12px; background: #283849; box-shadow: 0 15px 33px -22px #172340ad; }
+.landscape > img { width: 100%; height: 100%; }
+.landscape > img, .landscape-tree { object-fit: cover; object-position: var(--landscape-position); }
+.landscape-tree, .landscape-live, .landscape-live canvas, .landscape-air { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .landscape-air::before, .landscape-air::after, .landscape-air i { position: absolute; inset: 0; content: ''; }
 .landscape-air::before {
   background-image: radial-gradient(circle at 5% 26%, #f0f7ffd6 0.85px, transparent 1.1px), radial-gradient(circle at 26% 82%, #e2edfbad 0.65px, transparent 0.9px), radial-gradient(circle at 43% 16%, #f0f7ffb0 0.85px, transparent 1.05px), radial-gradient(circle at 54% 67%, #e2edfb80 0.55px, transparent 0.8px), radial-gradient(circle at 74% 45%, #f0f7ffd1 0.75px, transparent 1px), radial-gradient(circle at 93% 72%, #f0f7ffc9 0.85px, transparent 1.05px);
   background-size: 124px 79px;
+  background-position-x: calc(var(--snow-wind, 0) * 48px);
   animation: distant-snow 4.5s -2s linear infinite;
 }
 .landscape-air::after {
   background-image: radial-gradient(ellipse at 11% 28%, #f5faffbd 0.95px, transparent 1.65px), radial-gradient(ellipse at 31% 83%, #f5faffd6 1.4px, transparent 1.95px), radial-gradient(ellipse at 53% 41%, #f5faffb3 1.15px, transparent 1.65px), radial-gradient(ellipse at 80% 70%, #d8ebfac2 1.05px, transparent 1.5px), radial-gradient(ellipse at 94% 16%, #f5faffd2 1.35px, transparent 1.8px);
   background-size: 171px 101px;
+  background-position-x: calc(var(--snow-wind, 0) * 90px);
   animation: near-snow 3s -1.2s linear infinite;
 }
 .landscape-air i {
@@ -82,8 +85,8 @@ img { display: block; max-width: 100%; }
 .landscape:not(.is-storming) .landscape-air::after,
 .landscape:not(.is-storming) .landscape-air i { animation-play-state: paused; }
 .landscape.has-depth .landscape-air::before, .landscape.has-depth .landscape-air::after { content: none; }
-@keyframes distant-snow { to { background-position: 124px 79px; } }
-@keyframes near-snow { to { background-position: 171px 101px; } }
+@keyframes distant-snow { to { background-position-y: 79px; } }
+@keyframes near-snow { to { background-position-y: 101px; } }
 @keyframes storm-gust {
   0%, 28% { transform: translateX(-44%); opacity: 0; }
   58% { opacity: 0.54; }
@@ -279,7 +282,7 @@ h3 { font-size: 1.18rem; font-weight: 650; letter-spacing: -0.033em; }
   .header-inner nav { grid-row: 2; grid-column: 1 / -1; }
   .header-contact { grid-column: 2; grid-row: 1; }
   .header-inner nav a, .header-contact, .button, .profile-link { display: inline-flex; align-items: center; min-height: 44px; }
-  .landscape { aspect-ratio: 2.22; border-radius: 9px; }
+  .landscape { --landscape-position: 17% 49%; aspect-ratio: 2.22; border-radius: 9px; }
   .hero { grid-template-columns: minmax(0, 1fr) clamp(86px, 25vw, 125px); gap: 1rem; align-items: start; padding-block: 1.5rem 2.55rem; }
   .hero-copy { display: contents; }
   .location, h1, .role { grid-column: 1; }
@@ -317,5 +320,5 @@ h3 { font-size: 1.18rem; font-weight: 650; letter-spacing: -0.033em; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0ms !important; animation-duration: 0ms !important; }
-  .landscape-air, .landscape-live { display: none !important; }
+  .landscape-tree, .landscape-air, .landscape-live { display: none !important; }
 }

@@ -1,23 +1,99 @@
 const landscape = document.querySelector('#landscape');
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+function mountTree(artwork) {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d', { alpha: false });
+  if (!context) return undefined;
+
+  canvas.width = artwork.naturalWidth;
+  canvas.height = artwork.naturalHeight;
+  canvas.className = 'landscape-tree';
+  canvas.setAttribute('aria-hidden', 'true');
+  context.imageSmoothingEnabled = false;
+  context.drawImage(artwork, 0, 0);
+  artwork.after(canvas);
+
+  // Image-space landmarks in winter-pass.jpg. The snow and roots below stay fixed.
+  const trunk = 78;
+  const branchTips = 320;
+  const edge = 440;
+  const root = 320;
+  const stripHeight = window.matchMedia('(max-width: 690px)').matches ? 8 : 4;
+  const strips = Array.from({ length: root / stripHeight }, (_, index) => {
+    const y = index * stripHeight;
+    const height = 1 - (y + stripHeight / 2) / root;
+    return { y, height, flex: 22 * height ** 1.65, trunkX: trunk, tipsX: branchTips };
+  });
+
+  return (time, bend) => {
+    for (const strip of strips) {
+      const { y, height, flex } = strip;
+      const trunkX = trunk + Math.round(flex * bend);
+      const flutter = Math.sin(time * 2.8 - y * 0.045) * 2 * bend;
+      const tipsX = branchTips + Math.round(trunkX - trunk + (8 * bend + flutter) * height);
+      if (trunkX === strip.trunkX && tipsX === strip.tipsX) continue;
+      strip.trunkX = trunkX;
+      strip.tipsX = tipsX;
+
+      // Taper the displacement past the branch tips so the mountains stay still.
+      context.drawImage(artwork, 0, y, trunk, stripHeight, 0, y, trunkX, stripHeight);
+      context.drawImage(artwork, trunk, y, branchTips - trunk, stripHeight, trunkX, y, tipsX - trunkX, stripHeight);
+      context.drawImage(artwork, branchTips, y, edge - branchTips, stripHeight, tipsX, y, edge - tipsX, stripHeight);
+    }
+  };
+}
+
 if (landscape) {
+  const artwork = landscape.querySelector('img');
+  const air = landscape.querySelector('.landscape-air');
   let inView = !('IntersectionObserver' in window);
   let depth;
   let requestedDepth = false;
+  let drawTree;
+  let treeReady = false;
+  let frame = 0;
+  let lastTime;
+  let time = 0;
+  let windDistance = 0;
+  let treeBend = 0.5;
 
-  const shouldSnow = () => inView && !document.hidden && !motionPreference.matches;
+  function tick(now) {
+    const delta = lastTime === undefined ? 0 : Math.min((now - lastTime) / 1000, 0.05);
+    lastTime = now;
+    time += delta;
 
-  function syncSnow() {
-    const playing = shouldSnow();
+    // Snow responds immediately. The fir bends and recovers more slowly.
+    const windSpeed = 0.61 + 0.28 * Math.sin(time * 0.72) + 0.15 * Math.sin(time * 1.49 - 0.8);
+    windDistance += windSpeed * delta;
+    treeBend += (windSpeed - treeBend) * (1 - Math.exp(-3 * delta));
+    air.style.setProperty('--snow-wind', windDistance);
+
+    if (!treeReady && artwork.complete) {
+      treeReady = true;
+      if (artwork.naturalWidth) drawTree = mountTree(artwork);
+    }
+    drawTree?.(time, treeBend);
+    depth?.draw(time, windDistance, delta);
+    frame = window.requestAnimationFrame(tick);
+  }
+
+  function syncStorm() {
+    const playing = inView && !document.hidden && !motionPreference.matches;
     landscape.classList.toggle('is-storming', playing);
-    depth?.setPlaying(playing);
-    if (!playing || requestedDepth || window.location.protocol === 'file:') return;
+    if (!playing) {
+      window.cancelAnimationFrame(frame);
+      frame = 0;
+      lastTime = undefined;
+      return;
+    }
+
+    if (!frame) frame = window.requestAnimationFrame(tick);
+    if (requestedDepth || window.location.protocol === 'file:') return;
 
     requestedDepth = true;
-    import('./landscape.js').then(({ mountLandscape }) => {
+    import(new URL(landscape.dataset.snowModule, document.baseURI)).then(({ mountLandscape }) => {
       depth = mountLandscape(landscape);
-      depth?.setPlaying(shouldSnow());
     }).catch(() => {
       // CSS snow stays available when the module or WebGL is unavailable.
     });
@@ -26,13 +102,13 @@ if (landscape) {
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
-      syncSnow();
+      syncStorm();
     });
     observer.observe(landscape);
   }
-  motionPreference.addEventListener('change', syncSnow);
-  document.addEventListener('visibilitychange', syncSnow);
-  syncSnow();
+  motionPreference.addEventListener('change', syncStorm);
+  document.addEventListener('visibilitychange', syncStorm);
+  syncStorm();
 }
 
 const typingLine = document.querySelector('[data-typing-roles]');

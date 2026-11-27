@@ -2,6 +2,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.m
 
 const vertexShader = `
   uniform float uTime;
+  uniform float uWind;
   uniform float uAspect;
   uniform float uDpr;
   attribute float aPhase;
@@ -11,8 +12,7 @@ const vertexShader = `
     float depth = clamp((position.z + 2.6) / 4.8, 0.0, 1.0);
     float distance = 9.0 - position.z;
     float halfHeight = distance * 0.364;
-    float gust = 0.52 * (1.0 - cos(uTime * 0.49));
-    float wind = (uTime * 0.61 + gust) * (0.65 + depth * 0.87);
+    float wind = uWind * (0.65 + depth * 0.87);
     float fall = uTime * (0.31 + depth * 0.32 + aPhase * 0.13);
     float sway = sin(aPhase * 6.283 + uTime * (1.01 + aPhase)) * 0.052;
     vec2 flake = mod(position.xy + vec2(wind + sway, -fall) + 1.12, 2.24) - 1.12;
@@ -48,7 +48,8 @@ export function mountLandscape(figure) {
   camera.position.z = 9;
   const scene = new THREE.Scene();
 
-  const count = window.matchMedia('(max-width: 690px)').matches ? 89 : 183;
+  const compact = window.matchMedia('(max-width: 690px)');
+  const count = compact.matches ? 89 : 183;
   const positions = new Float32Array(count * 3);
   const phases = new Float32Array(count);
   let seed = 625001;
@@ -66,7 +67,7 @@ export function mountLandscape(figure) {
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   geometry.setAttribute('aPhase', new THREE.BufferAttribute(phases, 1));
-  const uniforms = { uTime: { value: 0 }, uAspect: { value: 1 }, uDpr: { value: 1 } };
+  const uniforms = { uTime: { value: 0 }, uWind: { value: 0 }, uAspect: { value: 1 }, uDpr: { value: 1 } };
   const material = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
@@ -78,49 +79,21 @@ export function mountLandscape(figure) {
   particles.frustumCulled = false;
   scene.add(particles);
 
-  let running = false;
   let lost = false;
-  let frame = 0;
-  let lastTime = 0;
   let nearX = 0;
   let nearY = 0;
-
-  function draw() {
-    renderer.render(scene, camera);
-  }
 
   function resize() {
     const { clientWidth: width, clientHeight: height } = container;
     if (!width || !height || lost) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+    const dpr = Math.min(window.devicePixelRatio || 1, compact.matches ? 1.35 : 1.6);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     uniforms.uAspect.value = camera.aspect;
     uniforms.uDpr.value = dpr;
     renderer.setPixelRatio(dpr);
     renderer.setSize(width, height, false);
-    draw();
-  }
-
-  function tick(now) {
-    const delta = lastTime === 0 ? 0 : Math.min((now - lastTime) / 1000, 0.05);
-    lastTime = now;
-    uniforms.uTime.value += delta;
-    const reach = 1 - Math.exp(-3.6 * delta);
-    camera.position.x += (nearX - camera.position.x) * reach;
-    camera.position.y += (nearY - camera.position.y) * reach;
-    draw();
-    frame = window.requestAnimationFrame(tick);
-  }
-
-  function sync() {
-    if (running && !lost && !document.hidden) {
-      if (!frame) frame = window.requestAnimationFrame(tick);
-    } else {
-      window.cancelAnimationFrame(frame);
-      frame = 0;
-      lastTime = 0;
-    }
+    renderer.render(scene, camera);
   }
 
   function steer(event) {
@@ -139,20 +112,17 @@ export function mountLandscape(figure) {
     event.preventDefault();
     lost = true;
     figure.classList.remove('has-depth');
-    sync();
   }
 
   function restore() {
     lost = false;
     resize();
     figure.classList.add('has-depth');
-    sync();
   }
 
   const resizer = new ResizeObserver(resize);
   resizer.observe(container);
   container.append(canvas);
-  document.addEventListener('visibilitychange', sync);
   figure.addEventListener('pointermove', steer);
   figure.addEventListener('pointerleave', reset);
   canvas.addEventListener('webglcontextlost', lose);
@@ -161,16 +131,17 @@ export function mountLandscape(figure) {
   figure.classList.add('has-depth');
 
   return {
-    setPlaying(value) {
-      running = value;
-      canvas.hidden = !running && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      sync();
+    draw(time, windDistance, delta) {
+      if (lost) return;
+      uniforms.uTime.value = time;
+      uniforms.uWind.value = windDistance;
+      const reach = 1 - Math.exp(-3.6 * delta);
+      camera.position.x += (nearX - camera.position.x) * reach;
+      camera.position.y += (nearY - camera.position.y) * reach;
+      renderer.render(scene, camera);
     },
     dispose() {
-      running = false;
-      sync();
       resizer.disconnect();
-      document.removeEventListener('visibilitychange', sync);
       figure.removeEventListener('pointermove', steer);
       figure.removeEventListener('pointerleave', reset);
       canvas.removeEventListener('webglcontextlost', lose);
